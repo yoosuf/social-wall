@@ -44,4 +44,10 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     {
         return $query->whereEmail($email);
     }
+
+
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
 }

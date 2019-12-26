@@ -35,6 +35,40 @@ $router->group(['prefix' => 'api/1', 'namespace' => 'Api\V1'], function ($router
 
 
 
+    $router->group(['namespace' => 'Post'], function ($router) {
+
+        $router->get('/posts', 'PostsController@index');
+
+        $router->post('/posts', 'PostsController@store');
+
+        $router->get('/posts/{post}', 'PostsController@show');
+
+        $router->put('/posts/{post}', 'PostsController@update');
+
+        $router->delete('/posts/{post}', 'PostsController@destroy');
+
+    });
+
+
+    $router->group(['namespace' => 'Comment'], function ($router) {
+
+        $router->get('/posts/{post}/comments', 'CommentsController@index');
+
+        $router->post('/posts/{post}/comments', 'CommentsController@store');
+
+        $router->get('/posts/{post}/comments/{comment}', 'CommentsController@show');
+
+        $router->put('/posts/{post}/comments/{comment}', 'CommentsController@update');
+
+        $router->delete('/posts/{post}/comments/{comment}', 'CommentsController@destroy');
+
+    });
+
+
+
+
+
+
 });
 
 
