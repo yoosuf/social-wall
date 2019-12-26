@@ -40,7 +40,7 @@ class Authenticate
      */
     public function handle($request, Closure $next, $guard = null)
     {
-        $token = $this->bearerToken($request->get('token'));
+        $token = $this->bearerToken();
 
         if(!$token) {
             // Unauthorized response if token not there
@@ -68,9 +68,9 @@ class Authenticate
 
 
 
-    private function bearerToken($request)
+    private function bearerToken()
     {
-        $header = $request->header('Authorization', '');
+        $header = $this->request->header('Authorization');
 
         if (Str::startsWith($header, 'Bearer '))
             return Str::substr($header, 7);

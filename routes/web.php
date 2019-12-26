@@ -30,6 +30,11 @@ $router->group(['prefix' => 'api/1', 'namespace' => 'Api\V1'], function ($router
         $router->post('/login', 'LoginController@authenticate');
 
     });
+
+    $router->get('/test', 'ExampleController@index');
+
+
+
 });
 
 
