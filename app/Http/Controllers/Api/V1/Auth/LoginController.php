@@ -3,13 +3,9 @@
 
 namespace App\Http\Controllers\Api\V1\Auth;
 
-
 use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Http\Request;
-
-use Firebase\JWT\JWT;
-use Firebase\JWT\ExpiredException;
 use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
@@ -29,7 +25,6 @@ class LoginController extends Controller
 
     public function authenticate()
     {
-
         $this->validate($this->request, [
             'email' => ['required', 'email', 'exists:users,email'],
             'password' => ['required']
@@ -46,6 +41,12 @@ class LoginController extends Controller
         return response()->json([
             'error' => 'Email or password is wrong.'
         ], 400);
+    }
+
+
+    public function refreshToken()
+    {
+
     }
 
 
