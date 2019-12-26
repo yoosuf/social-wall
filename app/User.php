@@ -18,7 +18,16 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
      * @var array
      */
     protected $fillable = [
-        'name', 'email',
+        'full_name',
+        'identity',
+        'email',
+        'password',
+        'is_active',
+        'timezone'
+    ];
+
+    protected $dates = [
+        'activated_at'
     ];
 
     /**
@@ -29,4 +38,10 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     protected $hidden = [
         'password',
     ];
+
+
+    public function scopeEmail($query, $email)
+    {
+        return $query->whereEmail($email);
+    }
 }

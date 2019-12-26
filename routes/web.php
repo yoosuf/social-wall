@@ -14,3 +14,23 @@
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
+
+
+
+
+
+
+$router->group(['prefix' => 'api/1', 'namespace' => 'Api\V1'], function ($router) {
+
+
+    $router->group(['namespace' => 'Auth'], function ($router) {
+
+        $router->post('/register', 'RegisterController@createUser');
+
+        $router->post('/login', 'LoginController@authenticate');
+
+    });
+});
+
+
+
