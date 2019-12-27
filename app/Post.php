@@ -21,9 +21,19 @@ class Post extends Model
     ];
 
 
-    public function user()
+    public function owner()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
+    public function parentComments()
+    {
+        return $this->comments()->where('parent_id', 0);
     }
 
 }
