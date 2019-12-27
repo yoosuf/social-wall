@@ -16,6 +16,8 @@ class LoginController extends Controller
 
     public function __construct(Request $request, User $model)
     {
+        $this->middleware('auth', ['except' => 'authenticate']);
+
         $this->request = $request;
 
         $this->model = $model;
@@ -37,7 +39,6 @@ class LoginController extends Controller
                 'token' => $this->jwt($user)
             ], 200);
         }
-        // Bad Request response
         return response()->json([
             'error' => 'Email or password is wrong.'
         ], 400);
@@ -46,7 +47,11 @@ class LoginController extends Controller
 
     public function refreshToken()
     {
+        $user = $this->request->auth;
 
+        return response()->json([
+            'refresh_token' => $this->jwt($user)
+        ], 200);
     }
 
 

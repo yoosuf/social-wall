@@ -3,14 +3,13 @@
 
 namespace App\Http\Controllers\Api\V1\Post;
 
-
 use App\Http\Controllers\Controller;
 use App\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class PostsController extends Controller
 {
-
     private $request;
 
     private $model;
@@ -27,8 +26,7 @@ class PostsController extends Controller
 
     public function index()
     {
-
-        return $this->request->auth->posts()->paginate(10);
+        return $this->request->auth->posts()->orderBy('id', 'desc')->paginate(10);
     }
 
 
@@ -40,11 +38,19 @@ class PostsController extends Controller
             'excerpt' => ['nullable']
         ]);
 
-        $data = [
-            'title' => $this->request->get('title'),
-            'body' => $this->request->get('body'),
-            'excerpt' => $this->request->get('excerpt'),
-        ];
+
+        $data = [];
+
+        if($this->request->has('title'))
+            $data['title'] = $this->request->get('title');
+
+        if($this->request->has('body'))
+            $data['body'] = $this->request->get('body');
+
+        if($this->request->has('excerpt'))
+            $data['excerpt'] = $this->request->get('excerpt');
+        else
+            $data['excerpt'] = Str::limit($data['body'], 140);
 
 
         return $this->request->auth->posts()->create($data);

@@ -21,7 +21,7 @@ class Post extends Model
     ];
 
 
-    public function user()
+    public function owner()
     {
         return $this->belongsTo(User::class);
     }

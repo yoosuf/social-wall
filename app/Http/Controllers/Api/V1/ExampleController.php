@@ -21,12 +21,9 @@ class ExampleController extends Controller
 
     public function index(Request $request)
     {
-
         $headerToken = $request->header('authorization');
 
         $token = Str::substr($headerToken, 7);
-
-
 
         $decoded = JWT::decode($token, env('JWT_SECRET'), ['HS256']);
 
